@@ -1,5 +1,5 @@
 #xx
-
+#数组创建
 import numpy as np
 # a = np.arange(15).reshape(3,5)
 # print(a)
@@ -31,8 +31,8 @@ import numpy as np
 # print(f)
 
 from numpy import pi
-g = np.linspace(0,2,9)
-print(g)
-h = np.linspace(0,2*pi,100)
-j = np.sin(h)
-print(j)
+# g = np.linspace(0,2,9)
+# print(g)
+# h = np.linspace(0,2*pi,100)
+# j = np.sin(h)
+# print(j)
