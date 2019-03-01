@@ -1,3 +1,5 @@
+#xx
+
 #coding=utf-8
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -14,6 +16,7 @@ fig, ax1 = plt.subplots()
 ax2 = ax1.twinx()
 
 changjing_3 = pd.read_excel("F:/AI/python_xx/scene_3.xlsx")
+
 # changjing_3.plot.scatter(x='a',y='f')
 
 # changjing_3.plot.scatter(x='a',y='数目')
