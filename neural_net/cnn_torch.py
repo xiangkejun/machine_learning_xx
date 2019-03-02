@@ -62,19 +62,21 @@ class CNN(nn.Module):
         self.conv1 = nn.Sequential(         # input shape (1, 28, 28)
             nn.Conv2d(
                 in_channels=1,              # input height 灰度图只有一个高度
-                out_channels=16,            # n_filters  
-                kernel_size=5,              # filter size
-                stride=1,                   # filter movement/step
-                padding=2,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1 
-                                            #保证图片大小不变，还是28*28
+                out_channels=16,            # n_filters
+                kernel_size=5,              # filter size  5*5
+                stride=1,                   # filter movement/step  步长
+                padding=2,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
+                                            # 在图片周围补两圈‘0’，保证图片大小不变 28*28  
+                                            # (n-k+2*p)/s+1 ,(28-5+2*2)/1+1 = 28
             ),                              # output shape (16, 28, 28)
             nn.ReLU(),                      # activation
             nn.MaxPool2d(kernel_size=2),    # choose max value in 2x2 area, output shape (16, 14, 14)
+                                            # stride Default value is kernel_size  (28-2+2*0)/2+1 = 14
         )
         self.conv2 = nn.Sequential(         # input shape (16, 14, 14)
-            nn.Conv2d(16, 32, 5, 1, 2),     # output shape (32, 14, 14)
+            nn.Conv2d(16, 32, 5, 1, 2),     # output shape (32, 14, 14)  (14-5+2*2)/1+1 = 14
             nn.ReLU(),                      # activation
-            nn.MaxPool2d(2),                # output shape (32, 7, 7)
+            nn.MaxPool2d(2),                # output shape (32, 7, 7)  (14-2+2*0)/2+1 = 7
         )
         self.out = nn.Linear(32 * 7 * 7, 10)   # fully connected layer, output 10 classes
 
@@ -114,9 +116,9 @@ for epoch in range(EPOCH):
         loss.backward()                 # backpropagation, compute gradients
         optimizer.step()                # apply gradients
 
-        if step % 50 == 0:
+        if step % 50 == 0:   #每50步测试一下训练的模型
             test_output, last_layer = cnn(test_x)
-            pred_y = torch.max(test_output, 1)[1].data.numpy()
+            pred_y = torch.max(test_output, 1)[1].data.numpy()  #dim = 1 维度=1
             accuracy = float((pred_y == test_y.data.numpy()).astype(int).sum()) / float(test_y.size(0))
             print('Epoch: ', epoch, '| train loss: %.4f' % loss.data.numpy(), '| test accuracy: %.2f' % accuracy)
             if HAS_SK:
