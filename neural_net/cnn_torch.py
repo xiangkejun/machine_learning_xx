@@ -62,10 +62,11 @@ class CNN(nn.Module):
         self.conv1 = nn.Sequential(         # input shape (1, 28, 28)
             nn.Conv2d(
                 in_channels=1,              # input height 灰度图只有一个高度
-                out_channels=16,            # n_filters
+                out_channels=16,            # n_filters  
                 kernel_size=5,              # filter size
                 stride=1,                   # filter movement/step
-                padding=2,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1
+                padding=2,                  # if want same width and length of this image after Conv2d, padding=(kernel_size-1)/2 if stride=1 
+                                            #保证图片大小不变，还是28*28
             ),                              # output shape (16, 28, 28)
             nn.ReLU(),                      # activation
             nn.MaxPool2d(kernel_size=2),    # choose max value in 2x2 area, output shape (16, 14, 14)
