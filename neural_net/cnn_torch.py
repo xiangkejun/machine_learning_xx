@@ -113,7 +113,7 @@ for epoch in range(EPOCH):
         output = cnn(b_x)[0]               # cnn output
         loss = loss_func(output, b_y)   # cross entropy loss
         optimizer.zero_grad()           # clear gradients for this training step
-        loss.backward()                 # backpropagation, compute gradients
+        loss.backward()                 # backpropagation, compute gradients 更新权重值
         optimizer.step()                # apply gradients
 
         if step % 50 == 0:   #每50步测试一下训练的模型
