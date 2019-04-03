@@ -10,9 +10,11 @@ import numpy as np
 # print(a.reshape(3,-1))  # -1 表示自适应
 
 # 堆叠数组
-# b = np.floor(10*np.random.random((2,2)))
-# c = np.floor(10*np.random.random((2,2)))
-# print(np.vstack((b,c)))   # 行方式堆叠
+b = np.floor(10*np.random.random((2,2)))
+print(b)
+c = np.floor(10*np.random.random((2,2)))
+print(c)
+print(np.vstack((b,c)))   # 行方式堆叠
 # print(np.hstack((b,c)))   # 列方式堆叠
 
 
@@ -28,7 +30,7 @@ from numpy import newaxis
 # print(np.hstack((d[:,newaxis],e[:,newaxis])))
 
 # 数组拆分
-f = np.floor(10*np.random.random((2,12)))
-print(f)
-print(np.hsplit(f,3))
-print(np.hsplit(f,(3,4)))
+# f = np.floor(10*np.random.random((2,12)))
+# print(f)
+# print(np.hsplit(f,3))
+# print(np.hsplit(f,(3,4)))
