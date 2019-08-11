@@ -1,5 +1,5 @@
 # 多层感知器
-# 3个特征值 推出一个结果
+# 3个特征值 推出一个连续值结果
 
 import pandas as pd
 import matplotlib.pyplot as plt

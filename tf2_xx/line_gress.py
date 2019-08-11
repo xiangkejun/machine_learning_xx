@@ -1,3 +1,5 @@
+# 拟合出一条直线
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
@@ -15,7 +17,7 @@ y = data.y
 print(x)
 
 model = tf.keras.Sequential()
-model.add(tf.keras.layers.Dense(1,input_shape=(1,)))
+model.add(tf.keras.layers.Dense(units=1,input_shape=(1,)))
 # model.summary() # ax+b
 
 model.compile(optimizer='adam',
