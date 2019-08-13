@@ -13,10 +13,6 @@ print(tf.__version__)
 
 data = pd.read_csv("xy.csv",sep=',')
 
-# data.plot.scatter(x='x',y='y')
-
-# plt.show()
-
 x = data.x
 y = data.y
 print(x)
@@ -35,3 +31,7 @@ print('w=',w,'b=',b)  # ('w=', array([[0.2669799]], dtype=float32), 'b=', array(
 
 # print(model.predict(x))
 print(model.predict(pd.Series([2,5])))  # 序列预测    [[0.6301164][1.4310561]]
+
+plt.scatter(x,y)
+plt.scatter(x,model.predict(x))
+plt.show()
