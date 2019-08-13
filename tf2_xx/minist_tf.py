@@ -1,9 +1,10 @@
+#encoding=utf-8
 # 多分类问题
 
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.font_manager import FontProperties
-# import tensorflow as tf
+# from matplotlib.font_manager import FontProperties
+import tensorflow as tf
 
 
 (train_image,train_label),(test_image,test_label) = tf.keras.datasets.fashion_mnist.load_data()
@@ -13,7 +14,7 @@ plt.imshow(train_image[0])
 train_image = train_image / 255 
 test_image = test_image /255 
 
-print(train_image.shape)
+print(train_image.shape)  # (60000, 28, 28)
 
 model = tf.keras.Sequential()
 model.add(tf.keras.layers.Flatten(input_shape=(28,28)))
@@ -27,4 +28,4 @@ model.compile(optimizer='adam',
 
 model.fit(train_image,train_label,epochs=5)
 
-model.evaluate(test_image,test_label)  #
+print(model.evaluate(test_image,test_label))  #
