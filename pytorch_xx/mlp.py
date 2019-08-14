@@ -5,30 +5,51 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 # from matplotlib.font_manager import FontProperties
-import tensorflow as tf
+import torch
 
 # my_font = FontProperties(fname=r"c:\windows\fonts\simsun.ttc",size=16)
 # data = pd.read_table("F:/AI/python_xx/advering.csv",sep=',')
 data = pd.read_csv("advering.csv",sep=',')
 
-data.plot.scatter(x='TV',y='scales')
-plt.show()
+# data.plot.scatter(x='TV',y='scales')
+# plt.show()
 
 print(data)
 
-x = data.iloc[:,0:-1]  # 取不要最要最后一列的数
-y = data.iloc[:,-1] # 取最后一列
-
+x = data.iloc[:,0:-1].as_matrix()  # 取不要最要最后一列的数
+y = data.iloc[:,-1].as_matrix() # 取最后一列
 print(x)
 
-model = tf.keras.Sequential([tf.keras.layers.Dense(10,input_shape=(3,),activation='relu'),  #第一层
-                            tf.keras.layers.Dense(1)]  # 第二层
-                            )
-model.compile(optimizer='adam',
-                loss='mse')
+tx = torch.FloatTensor(x).reshape(-1,3)  # 3个特征
+ty = torch.FloatTensor(y).reshape(-1,1)
 
-model.fit(x,y,epochs=100)
+model = torch.nn.Sequential(
+    torch.nn.Linear(in_features=3, out_features=10),
+    torch.nn.ReLU(),
+    torch.nn.Linear(10, 1),   
+    torch.nn.ReLU(),
+)
 
-test = data.iloc[:1,0:-1] #取前两个数据做预测
-print(model.predict(test)) #[[23.926298]]
+loss_fn = torch.nn.MSELoss(reduction='sum')
+learning_rate = 1e-4
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
+for t in range(5000):
+    # Forward pass: compute predicted y by passing x to the model.
+    y_pred = model(tx)
+
+    # Compute and print loss.
+    loss = loss_fn(y_pred, ty)
+    print(t, loss.item())
+
+    plt.scatter(t,loss.item()) 
+ 
+
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+
+plt.show()
+
+print(model(tx[:1]))  # 预测地一个数据 tensor([[22.3988]], grad_fn=<ReluBackward0>)
