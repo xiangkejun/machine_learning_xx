@@ -5,7 +5,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 # from matplotlib.font_manager import FontProperties
-import tensorflow as tf
+import torch
 
 # my_font = FontProperties(fname=r"c:\windows\fonts\simsun.ttc",size=16)
 # data = pd.read_table("F:/AI/python_xx/2fenlei.csv",sep=',')
@@ -17,29 +17,37 @@ data = pd.read_csv("2fenlei.csv",sep=',')
 
 print(data)
 
-x = data.iloc[:,0:-1]  # 取不要最要最后一列的数
-y = data.iloc[:,-1].replace(-1,0) # 取最后一列 并将-1替换为0  变成两类 0,1
-
+x = data.iloc[:,0:-1].as_matrix()  # 取不要最要最后一列的数
+y = data.iloc[:,-1].replace(-1,0).as_matrix() # 取最后一列 并将-1替换为0  变成两类 0,1
 print(y)
 
-model = tf.keras.Sequential()
-model.add(tf.keras.layers.Dense(4,input_shape=(3,),activation='relu'))
-model.add(tf.keras.layers.Dense(4,activation='relu'))
-model.add(tf.keras.layers.Dense(1,activation='sigmoid')) # 映射到 0-1 之间
-# model.summary()
+tx = torch.FloatTensor(x).reshape(-1,3)
+ty = torch.FloatTensor(y).reshape(-1,1)
 
 
-model.compile(optimizer='adam',
-                loss='binary_crossentropy',
-                metrics=['acc'])
+model = torch.nn.Sequential(
+    torch.nn.Linear(in_features=3, out_features=4),
+    torch.nn.ReLU(),
+    torch.nn.Linear(4, 1),
+    torch.nn.Sigmoid(),  # 二分类
+)
 
-history = model.fit(x,y,epochs=100)
+loss_fn = torch.nn.MSELoss(reduction='sum')
+learning_rate = 1e-4
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-# history.history.key()  # ['loss', 'acc']
+for t in range(100):
+    # Forward pass: compute predicted y by passing x to the model.
+    y_pred = model(tx)
 
-plt.plot(history.epoch, history.history.get('loss'),'bo')
-plt.plot(history.epoch, history.history.get('acc'),'g')
-plt.show()
+    # Compute and print loss.
+    loss = loss_fn(y_pred, ty)
+    print(t, loss.item())
 
-print(model.predict(x[:1] ))  # 取第一个做预测
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+print(model(tx[:1]))  # 预测地一个数据  tensor([[1.]], grad_fn=<SigmoidBackward>)
+
 
