@@ -1,5 +1,5 @@
 #encoding=utf-8
-# 多层感知器
+# 多层感知机
 # 3个特征值 推出一个连续值结果
 
 import pandas as pd
