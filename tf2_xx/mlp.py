@@ -1,16 +1,17 @@
+#encoding=utf-8
 # 多层感知器
 # 3个特征值 推出一个连续值结果
 
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.font_manager import FontProperties
-# import tensorflow as tf
+# from matplotlib.font_manager import FontProperties
+import tensorflow as tf
 
-my_font = FontProperties(fname=r"c:\windows\fonts\simsun.ttc",size=16)
-data = pd.read_table("F:/AI/python_xx/advering.csv",sep=',')
+# my_font = FontProperties(fname=r"c:\windows\fonts\simsun.ttc",size=16)
+# data = pd.read_table("F:/AI/python_xx/advering.csv",sep=',')
+data = pd.read_csv("advering.csv",sep=',')
 
 data.plot.scatter(x='TV',y='scales')
-
 plt.show()
 
 print(data)
@@ -29,5 +30,4 @@ model.compile(optimizer='adam',
 model.fit(x,y,epochs=100)
 
 test = data.iloc[:1,0:-1] #取前两个数据做预测
-model.predict(test)
-
+print(model.predict(test)) #[[23.926298]]
