@@ -37,9 +37,12 @@ history = model.fit(x,y,epochs=100)
 
 # history.history.key()  # ['loss', 'acc']
 
-plt.plot(history.epoch, history.history.get('loss'),'bo')
-plt.plot(history.epoch, history.history.get('acc'),'g')
+plt.plot(history.epoch, history.history.get('loss'),'bo',label='loss')
+plt.plot(history.epoch, history.history.get('acc'),'g',label='acc')
+plt.xlabel('Epochs')
+plt.ylabel('loss+acc')
+plt.legend(loc='best')  # 图例
 plt.show()
 
-print(model.predict(x[:1] ))  # 取第一个做预测
+print(model.predict(x[:1] ))  # 取第一个做预测[[0.9835632]]
 
