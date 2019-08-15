@@ -5,10 +5,10 @@
 
 https://www.runoob.com/mysql/mysql-create-database.html
 
-'''
-sudo mysql
+```
+sudo mysql 
 CREATE DATABASE 数据库名;
-'''
+```
 
 2. 使用 MySQLdb 操作 mysql
 
