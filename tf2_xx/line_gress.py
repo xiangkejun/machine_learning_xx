@@ -1,4 +1,3 @@
-
 #encoding=utf-8
 # 拟合出一条直线
 
@@ -21,7 +20,10 @@ model = tf.keras.Sequential()
 model.add(tf.keras.layers.Dense(units=1,input_shape=(1,)))
 # model.summary() # ax+b
 
-model.compile(optimizer='adam',
+adam = tf.keras.optimizers.Adam(learning_rate=0.001)
+model.compile(
+                # optimizer='adam',
+                optimizer=adam,
                 loss='mse')
 
 history = model.fit(x,y,epochs=100)
