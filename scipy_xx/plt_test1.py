@@ -1,3 +1,7 @@
+
+# https://www.jianshu.com/p/5392170c5fee
+# plt.ion()  和 plt.ioff()
+
 #encoding=utf-8
 
 import matplotlib.pyplot as plt
