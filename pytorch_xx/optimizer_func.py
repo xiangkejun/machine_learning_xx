@@ -15,11 +15,8 @@ import torch
 def loss_f(x):
     return x[0]**2 + x[1]**2 -2*x[0]*x[1] - 25
 
-<<<<<<< HEAD
-x = torch.tensor([9.],requires_grad=True) # 随机初始值
-=======
+# x = torch.tensor([9.],requires_grad=True) # 随机初始值
 x = torch.tensor([2.,1.],requires_grad=True) # 随机初始值
->>>>>>> e3393862b95c29f5230a7c43a2e612336c5fb82b
 optimizer = torch.optim.Adam([x],lr=1e-3)
 # optimizer = torch.optim.SGD([x],lr=0.01)
 # optimizer = torch.optim.RMSprop([x],lr=1e-3)
