@@ -9,8 +9,10 @@ import torch
 def loss_f(x):
     return x**2 - 10*x + 25
 
-x = torch.tensor([9.],requires_grad=True)
+x = torch.tensor([9.],requires_grad=True) # 随机初始值
 optimizer = torch.optim.Adam([x],lr=1e-3)
+# optimizer = torch.optim.SGD([x],lr=0.01)
+# optimizer = torch.optim.RMSprop([x],lr=1e-3)
 for step in range(20000):
     pred = loss_f(x)
 
