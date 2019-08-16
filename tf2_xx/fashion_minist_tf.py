@@ -30,7 +30,7 @@ model.compile(optimizer='adam',
                 loss='sparse_categorical_crossentropy',  # 使用了数字编码类别用
                 metrics=['acc'])
 
-model.fit(train_image,train_label,epochs=5)
+model.fit(train_image,train_label,batch_size=60,epochs=5) 
 
 print(model.evaluate(test_image,test_label))  #
 
