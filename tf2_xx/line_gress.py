@@ -21,12 +21,17 @@ model.add(tf.keras.layers.Dense(units=1,input_shape=(1,)))
 # model.summary() # ax+b
 
 adam = tf.keras.optimizers.Adam(learning_rate=0.001)
+print(model.predict(x))
+# loss_mse = tf.keras.losses.MSE(y,model.predict(x))
 model.compile(
                 # optimizer='adam',
                 optimizer=adam,
-                loss='mse')
+                loss='mse'
+                # loss=loss_mse
+                )
 
-history = model.fit(x,y,epochs=100)
+history = model.fit(x,y,
+                    batch_size=2,  epochs=100)
 
 w,b = model.layers[0].get_weights()
 print('w=',w,'b=',b)  # ('w=', array([[0.2669799]], dtype=float32), 'b=', array([0.09615658], dtype=float32))
