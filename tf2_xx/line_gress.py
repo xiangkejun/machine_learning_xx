@@ -31,7 +31,7 @@ model.compile(
                 )
 
 history = model.fit(x,y,
-                    batch_size=2,  epochs=100)
+                    batch_size=2,  epochs=1000)
 
 w,b = model.layers[0].get_weights()
 print('w=',w,'b=',b)  # ('w=', array([[0.2669799]], dtype=float32), 'b=', array([0.09615658], dtype=float32))
@@ -40,5 +40,5 @@ print('w=',w,'b=',b)  # ('w=', array([[0.2669799]], dtype=float32), 'b=', array(
 print(model.predict(pd.Series([2,5])))  # 序列预测    [[0.6301164][1.4310561]]
 
 plt.scatter(x,y)
-plt.scatter(x,model.predict(x))
+plt.plot(x,model.predict(x))
 plt.show()
